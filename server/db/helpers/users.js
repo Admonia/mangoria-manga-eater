@@ -24,7 +24,7 @@ const getAllUsers = async () => {
         const { rows }
          = await client.query(`
             SELECT *
-            FROM trainers;
+            FROM users;
         `)
         return rows
     } catch (error) {

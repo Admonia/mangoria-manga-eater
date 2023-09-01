@@ -24,7 +24,7 @@ const getAllPosts = async () => {
         const { rows }
          = await client.query(`
             SELECT *
-            FROM trainers;
+            FROM posts;
         `)
         return rows
     } catch (error) {
