@@ -24,7 +24,7 @@ const getAllAnime = async () => {
         const { rows }
          = await client.query(`
             SELECT *
-            FROM posts;
+            FROM anime;
         `)
         return rows
     } catch (error) {
