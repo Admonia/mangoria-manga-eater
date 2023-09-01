@@ -45,7 +45,7 @@ const createTables = async () => {
         CREATE TABLE anime (
             "animeId" SERIAL PRIMARY KEY,
             "postId" INTEGER REFERENCES species("postId") NOT NULL,
-            name varchar(255) NOT NULL,
+            anime varchar(255) NOT NULL,
             "animeId" INTEGER REFERENCES trainers("animeId"),
             is_registered BOOLEAN NOT NULL
         );
