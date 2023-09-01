@@ -3,7 +3,7 @@ const client = require('../client')
 const createAnime = async ({ name, description }) => {
     try {
         const {
-            rows: [post],
+            rows: [anime],
        
         } = await client.query (
          
