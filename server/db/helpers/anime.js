@@ -8,7 +8,7 @@ const createAnime = async ({ name, description }) => {
         } = await client.query (
          
             `
-                INSERT INTO trainers(name, description)
+                INSERT INTO anime(name, description)
                 VALUES($1, $2)
                 RETURNING *;
             `,

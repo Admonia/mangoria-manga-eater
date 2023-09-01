@@ -8,7 +8,7 @@ const createPost = async ({ title, body }) => {
         } = await client.query (
          
             `
-                INSERT INTO trainers(title, body)
+                INSERT INTO posts(title, body)
                 VALUES($1, $2)
                 RETURNING *;
             `,

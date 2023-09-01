@@ -8,7 +8,7 @@ const createUser = async ({ username, password }) => {
         } = await client.query (
          
             `
-                INSERT INTO trainers(username, password)
+                INSERT INTO users(username, password)
                 VALUES($1, $2)
                 RETURNING *;
             `,
