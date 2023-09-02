@@ -12,8 +12,8 @@ const dropTables = async () => {
         console.log("Starting to drop tables")
         await client.query(`
         DROP TABLE IF EXISTS users;
-        DROP TABLE IF EXISTS posts;
         DROP TABLE IF EXISTS anime;
+        DROP TABLE IF EXISTS posts;
         `)
         console.log("Tables dropped!")
     } catch (error) {
@@ -29,27 +29,82 @@ const createTables = async () => {
         CREATE TABLE users (
             "userId" SERIAL PRIMARY KEY,
             username varchar(255) UNIQUE NOT NULL,
-            password varchar(255) NOT NULL,
+            password varchar(255) NOT NULL
         );
-        CREATE TABLE types (
-            type_id SERIAL PRIMARY KEY,
-            type varchar(255) UNIQUE NOT NULL
-        );
-        CREATE TABLE posts (
-            "postId" SERIAL PRIMARY KEY,
-            title varchar(255) UNIQUE NOT NULL,
-            body varchar(255) UNIQUE NOT NULL,
-            "primaryTypeId" INTEGER REFERENCES types(type_id) NOT NULL,
-            "secondaryTypeId" INTEGER REFERENCES types(type_id)
-        );
+
+
         CREATE TABLE anime (
             "animeId" SERIAL PRIMARY KEY,
-            "postId" INTEGER REFERENCES species("postId") NOT NULL,
-            anime varchar(255) NOT NULL,
-            "animeId" INTEGER REFERENCES trainers("animeId"),
-            is_registered BOOLEAN NOT NULL
+            name varchar(255) NOT NULL,
+            description varchar(512) NOT NULL
+        );
+        
+
+        CREATE TABLE posts (
+            "postId" SERIAL PRIMARY KEY,
+            title varchar(255) NOT NULL,
+            body varchar(512) NOT NULL
         );
     `)
     console.log("Tables built!")
 }
 
+const createInitialUsers = async () => {
+    try {
+        for (const user of users) {
+            await createUser(user)
+        }
+        console.log("created users")
+    } catch (error) {
+        throw error
+    }
+}
+
+
+const createInitialPosts = async () => {
+    try {
+        for (const post of posts) {
+            await createPost(post)
+        }
+        console.log("created posts")
+    } catch (error) {
+        throw error
+    }
+}
+
+
+const createInitialAnime = async () => {
+    try {
+        for (const ani of anime) {
+            await createAnime(ani);
+        }
+        console.log("created anime");
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+const rebuildDb = async () => {
+    try {
+        client.connect()
+        await dropTables()
+        await createTables()
+
+        console.log("starting to seed...")
+        await createInitialUsers()
+        await createInitialPosts()
+        await createInitialAnime()
+        await getAllUsers()
+        await getAllPosts()
+        await getAllAnime()
+
+    } catch (error) {
+        console.error(error)
+    } finally {
+
+        client.end()
+    }
+}
+
+rebuildDb()

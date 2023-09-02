@@ -14,6 +14,7 @@ const createUser = async ({ username, password }) => {
             `,
             [username, password]
         )
+        console.log(user)
         return user
     } catch (error) {
         throw error

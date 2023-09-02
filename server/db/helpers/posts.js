@@ -14,6 +14,7 @@ const createPost = async ({ title, body }) => {
             `,
             [title, body]
         )
+        console.log(post)
         return post
     } catch (error) {
         throw error

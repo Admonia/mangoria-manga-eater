@@ -14,6 +14,7 @@ const createAnime = async ({ name, description }) => {
             `,
             [name, description]
         )
+        console.log(anime)
         return anime
     } catch (error) {
         throw error
