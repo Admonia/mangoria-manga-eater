@@ -16,13 +16,13 @@ router.get('/', async (req, res, next) => {
 // Add more routes as needed (POST, PUT, DELETE, etc.)
 router.post('/', async (req, res, next) => {
     try {
-      const { username, email } = req.body;
+      const { username, password } = req.body;
       // Validate input data here if necessary
   
       // Insert a new user into the database
       const result = await db.query(
-        'INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *',
-        [username, email]
+        'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *',
+        [username, password]
       );
   
       res.status(201).json(result.rows[0]);
@@ -49,13 +49,13 @@ router.post('/', async (req, res, next) => {
   router.put('/:id', async (req, res, next) => {
     try {
       const { id } = req.params;
-      const { username, email } = req.body;
+      const { username, password } = req.body;
       // Validate input data here if necessary
   
       // Update user information in the database
       const result = await db.query(
-        'UPDATE users SET username = $1, email = $2 WHERE id = $3 RETURNING *',
-        [username, email, id]
+        'UPDATE users SET username = $1, password = $2 WHERE id = $3 RETURNING *',
+        [username, password, id]
       );
   
       if (result.rows.length === 0) {
