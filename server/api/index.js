@@ -10,4 +10,5 @@ router.get('health', (re,res,next) => {
 
 router.use('/users', require('./users'));
 
-export default router;
+// export default router;
+module.exports = router;

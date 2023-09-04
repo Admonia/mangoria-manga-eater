@@ -6,7 +6,7 @@ const client = require('./db/client'); // Import your database client
 
 const app = express();
 const PORT = process.env.PORT || 8089; // Use the provided port or default to 8089
-
+const client = require("./db/client")
 // Middleware
 app.use(morgan('dev'));
 app.use(bodyParser.json());
