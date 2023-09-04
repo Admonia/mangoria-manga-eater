@@ -5,7 +5,7 @@ const {
   getUserById,
   createUser,
   updateUser,
-  // deleteUser,
+  deleteUser,
 } = require('../db/helpers/users');
 
 // GET all users
@@ -64,7 +64,7 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-// // DELETE a user by ID
+// DELETE a user by ID
 // router.delete('/:id', async (req, res, next) => {
 //   try {
 //     const userId = parseInt(req.params.id); 

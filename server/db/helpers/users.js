@@ -83,8 +83,41 @@ const updateUser = async (userId, { username, password }) => {
 // SET username = 'Arcadia', password = 'Calypso'
 // WHERE "userId" = 1
 // RETURNING *;
+const deleteUser = async (userId) => {
+  try {
+    const {
+      rows: [deletedUser],
+    } = await client.query(
+      `
+      DELETE FROM users
+      WHERE "userId" = $1
+      RETURNING *;
+      `,
+      [userId]
+    );
+
+    if (!deletedUser) {
+      console.error(`User with ID ${userId} not found`);
+      return null; // Handle the case when the user doesn't exist
+    }
+
+    console.log(`Deleted user with ID ${userId}`);
+    return deletedUser;
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    throw error;
+  }
+};
 
 
-module.exports = { createUser, getAllUsers, getUserById, updateUser };
+//This command
+// DELETE FROM users
+// WHERE "userId" = 1;
+
+
+
+
+
+module.exports = { createUser, getAllUsers, getUserById, updateUser, deleteUser };
 
 // module.exports = { createUser, getAllUsers }
