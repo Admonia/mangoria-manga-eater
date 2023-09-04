@@ -1,5 +1,5 @@
-module.exports = {
-    ...require('./users'),
-    ...require('./posts'),
-    ...require('./anime')
-};
+// module.exports = {
+//     ...required('./users')
+//     // ...required('./posts'),
+//     // ...required('./anime')
+// }

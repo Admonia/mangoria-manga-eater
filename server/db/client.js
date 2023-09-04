@@ -5,5 +5,5 @@ const { Client } = require('pg')
 const animeLove = 'anime_lover'
 const client = new Client(`postgres://localhost:5432/${animeLove}`)
 
-//Export for use in other files
+
 module.exports = client
