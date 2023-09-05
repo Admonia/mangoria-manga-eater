@@ -5,20 +5,19 @@ const {
   getUserById,
   createUser,
   updateUser,
-  deleteUser,
+  // deleteUser,
 } = require('../db/helpers/users');
 
 // GET all users
 router.get('/', async (req, res, next) => {
-  try {
-    const users = await getAllUsers(); // Call the function to get all users
-
-    res.json(users); // Send the users as a JSON response
+  console.log(res)
+  try{
+      const user = await getAllUsers();
+      res.send(user);
   } catch (error) {
-    next(error); // Handle errors
+      next(error);
   }
 });
-
 // GET user by ID
 router.get('/:id', async (req, res, next) => {
   try {

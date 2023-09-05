@@ -12,7 +12,7 @@ router.post('/', async (req, res, next) => {
     try {
       const newPost = req.body; // Assuming the request body contains post data
       const createdPost = await createPost(newPost); // Call the function to create a new post
-      res.status(201).json(createdPost); // Respond with the created post and HTTP status 201 (Created)
+      res.send(201).json(createdPost); // Respond with the created post and HTTP status 201 (Created)
     } catch (error) {
       next(error); // Handle errors
     }
@@ -22,9 +22,10 @@ router.post('/', async (req, res, next) => {
   router.get('/', async (req, res, next) => {
     try {
       const posts = await getAllPosts(); // Call the function to get all posts
-      res.json(posts); // Send the posts as a JSON response
+      res.send(posts); // Send the posts as a JSON response
     } catch (error) {
       next(error); // Handle errors
     }
   });
-  
+
+  module.exports = router;
