@@ -6,9 +6,8 @@ const {
   updateUser, 
   deleteUser,
 } = require('./helpers/users');
-const { createPost, getAllPosts } = require('./helpers/posts');
+const { createPost, getAllPosts, getPostById, updatePost, deletePost } = require('./helpers/posts');
 const { createAnime, getAllAnime } = require('./helpers/anime');
-
 
 const { users, posts, anime } = require('./seedData');
 
@@ -16,9 +15,9 @@ const dropTables = async () => {
   try {
     console.log('Starting to drop tables');
     await client.query(`
+    DROP TABLE IF EXISTS posts;
         DROP TABLE IF EXISTS users;
         DROP TABLE IF EXISTS anime;
-        DROP TABLE IF EXISTS posts;
         `);
     console.log('Tables dropped!');
   } catch (error) {
@@ -45,6 +44,8 @@ const createTables = async () => {
 
         CREATE TABLE posts (
             "postId" SERIAL PRIMARY KEY,
+            "userId" INTEGER REFERENCES users("userId"),
+            "animeId" INTEGER REFERENCES anime("animeId"),
             title varchar(255) NOT NULL,
             body varchar(512) NOT NULL
         );
@@ -88,12 +89,59 @@ const createInitialAnime = async () => {
 // Function to update a user's information
 const updateInitialUser = async (userIdToUpdate, updatedUserData) => {
   try {
-    await updateUser(userIdToUpdate, updatedUserData);
-    console.log('Updated user with ID', userIdToUpdate);
+    const updatedUser = await updateUser(userIdToUpdate, updatedUserData);
+    if (updatedUser) {
+      console.log('Updated user with ID', userIdToUpdate);
+    } else {
+      console.error('User with ID', userIdToUpdate, 'not found. Failed to Update!');
+    }
   } catch (error) {
+    console.error('Error updating user:', error);
+  }
+};
+
+const updateInitialPost = async (userId, postId, updatedPostData) => {
+  try {
+    // First, retrieve the user by userId
+    const user = await getUserById(userId);
+
+    if (!user) {
+      console.error('User with ID', userId, 'not found. Failed to update Post!!!!');
+      return null;
+    }
+
+    // Check if the postId exists and retrieve the post by postId
+    const post = await getPostById(postId);
+
+    if (!post) {
+      console.error('Post with ID', postId, 'not found.');
+      return null;
+    }
+
+    // Now you can update the post using the retrieved user and post data
+    const updatedPost = await updatePost(userId, postId, updatedPostData);
+
+    if (!updatedPost) {
+      console.error('Failed to update post.');
+      return null;
+    }
+
+    return updatedPost;
+  } catch (error) {
+    console.error('Error updating post:', error);
     throw error;
   }
 };
+
+
+// const updateInitialUser = async (userIdToUpdate, updatedUserData) => {
+//   try {
+//     await updateUser(userIdToUpdate, updatedUserData);
+//     console.log('Updated user with ID', userIdToUpdate);
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 // Function to create a new user
 const createNewUser = async (userData) => {
@@ -116,30 +164,7 @@ const rebuildDb = async () => {
     await createInitialPosts();
     await createInitialAnime();
 
-    // Example: Update the user with ID 1
-    const userIdToUpdate = 1; // Replace with the actual user ID you want to update
-    const updatedUserData = {
-      username: 'JynxgoesBOOM', // Replace with the new username
-      password: 'ViandCaitlin4eva', // Replace with the new password
-    };
-    await updateInitialUser(userIdToUpdate, updatedUserData);
 
-    // Example: Create a new user
-    const newUser = {
-      username: 'Arcana', // Replace with the new username
-      password: 'Lovelybones444', // Replace with the new password
-    };
-    await createNewUser(newUser);
-
-    const userIdToDelete = 1; // Replace with the actual user ID you want to delete
-    await deleteUser(userIdToDelete);
-    
-
-    await getAllUsers();
-    await getAllPosts();
-    await getAllAnime();
-    await getUserById();
-    await deleteUser();
   } catch (error) {
     console.error(error);
   } finally {

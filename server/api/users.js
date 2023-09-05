@@ -5,7 +5,7 @@ const {
   getUserById,
   createUser,
   updateUser,
-  // deleteUser,
+  deleteUser,
 } = require('../db/helpers/users');
 
 // GET all users
@@ -64,20 +64,20 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // DELETE a user by ID
-// router.delete('/:id', async (req, res, next) => {
-//   try {
-//     const userId = parseInt(req.params.id); 
-//     const deletedUser = await deleteUser(userId); 
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const userId = parseInt(req.params.id); 
+    const deletedUser = await deleteUser(userId); 
 
-//     if (deletedUser) {
-//       res.json({ message: 'User deleted' }); // Respond with a message indicating that the user was deleted
-//     } else {
-//       res.status(404).json({ message: 'User not found' }); // User not found
-//     }
-//   } catch (error) {
-//     next(error); // Handle errors
-//   }
-// });
+    if (deletedUser) {
+      res.json({ message: 'User deleted' }); // Respond with a message indicating that the user was deleted
+    } else {
+      res.status(404).json({ message: 'User not found' }); // User not found
+    }
+  } catch (error) {
+    next(error); // Handle errors
+  }
+});
 
 module.exports = router;
 

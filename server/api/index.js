@@ -8,7 +8,7 @@ router.get('/health', (re,res,next) => {
 
 //Router: api/users
 
-// router.use('/users', require('./users'));
+router.use('/users', require('./users'));
 router.use('/posts', require('./posts'));
 router.use('/anime', require('./anime'));
 
