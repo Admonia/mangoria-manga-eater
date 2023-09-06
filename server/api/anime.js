@@ -65,19 +65,25 @@ router.put('/:id', async (req, res, next) => {
 
 // Delete Anime by ID
 router.delete('/:id', async (req, res, next) => {
-    try {
-        const animeId = parseInt(req.params.id);
-        const deletedAnime = await deleteAnime(animeId);
+  try {
+    // Parse the animeId from the URL parameter
+    const animeId = parseInt(req.params.id);
 
-        if (deletedAnime) {
-            res.json({ message: 'Anime deleted' }); // Respond with a message indicating that the anime was deleted
-        } else {
-            res.status(404).json({ message: 'Anime not found' }); // Anime not found
-        }
-    } catch (error) {
-        next(error); // Handle errors
+    // Call the deleteAnime function to delete the anime by ID
+    const deletedAnime = await deleteAnime(animeId);
+
+    // Check if the anime was successfully deleted
+    if (deletedAnime) {
+      res.json({ message: 'Anime deleted' }); // Respond with a message indicating that the anime was deleted
+    } else {
+      res.status(404).json({ message: 'Anime not found' }); // Anime not found
     }
+  } catch (error) {
+    next(error); // Handle errors
+  }
 });
+
+
 
 module.exports = router;
 
