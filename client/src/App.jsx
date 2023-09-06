@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { fetchAllUsers } from "./helpers/users";
-import { fetchAllAnime } from "./helpers/anime"; // Import the fetchAllAnime function
+import { fetchAllAnime } from "./helpers/anime";
+import { fetchAllPosts } from "./helpers/posts"; // Import the fetchAllPosts function
 import User from "./components/users";
-import Anime from "./components/Anime"; // Import the Anime component
+import Anime from "./components/Anime";
+import Posts from "./components/Posts"; // Import the Posts component
 
 function App() {
   const [allUsers, setAllUsers] = useState([]);
   const [allAnime, setAllAnime] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch users and anime data concurrently
-        const [users, anime] = await Promise.all([fetchAllUsers(), fetchAllAnime()]);
-        
+        const [users, anime, posts] = await Promise.all([
+          fetchAllUsers(),
+          fetchAllAnime(),
+          fetchAllPosts(), // Fetch posts data
+        ]);
+
         setAllUsers(users);
         setAllAnime(anime);
+        setAllPosts(posts); // Set the posts data
         setIsLoading(false);
       } catch (error) {
         setError(error);
@@ -53,6 +60,8 @@ function App() {
               </li>
             ))}
           </ul>
+
+          <Posts posts={allPosts} /> {/* Include the Posts component */}
         </div>
       )}
     </div>
