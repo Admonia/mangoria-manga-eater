@@ -1,0 +1,47 @@
+   .navbar {
+    background-color: #0105145f;
+    color: #12bac3c7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: #13dde4;
+    margin-right: 20px;
+  }
+  
+  .navbar a:hover {
+    text-decoration: underline;
+  }
+  
+   .navbar {
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #1cc5ba, 0 0 10px #76c51c, 0 0 15px #ffff00, 0 0 20px #00ff00, 0 0 25px #0000ff, 0 0 30px #9900ff, 0 0 35px #ff00ff;
+    animation: rainbowText 3s linear infinite; 
+  } 
+  
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+  }
+  
+  .navbar-item {
+    margin: 0;
+  }
+
+  
+  @keyframes rainbowText {
+    0% {
+      text-shadow: 0 0 3px #eee715, 0 0 10px #18cff3cc, 0 0 15px #ffff00, 0 0 20px #00ff00, 0 0 25px #00e1ff, 0 0 30px #9900ff, 0 0 35px #ff00ff;
+    }
+    100% {
+      text-shadow: 0 0 3px #f13af1, 0 0 10px #9900ff, 0 0 15px #0000ff, 0 0 20px #00ff00, 0 0 25px #ffff00, 0 0 30px #ff9900, 0 0 35px #ff0000;
+    }
+  } 
+   
+
+ 

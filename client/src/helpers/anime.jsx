@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+
 const baseUrl = 'http://localhost:8089';
 
 export async function fetchAllAnime() {
@@ -10,3 +12,8 @@ export async function fetchAllAnime() {
         throw error; // Re-throw the error to handle it in your component
     }
 }
+
+
+
+
+

@@ -1,0 +1,51 @@
+/* Anime.css */
+
+.anime-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .anime-heading {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px; /* Add some padding for spacing */
+    border-radius: 8px; /* Rounded corners */
+    background: linear-gradient(45deg, #f06, #f90, #ff0, #0f6, #06f, #90f, #f06);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: 2px solid transparent;
+    animation: rainbowBorder 5s linear infinite;
+    color: #000; /* Black text color */
+  }
+  
+  .anime-card {
+    border: 1px solid #f3da1e; /* Border for the card */
+    border-radius: 10px; /* Rounded corners for the card */
+    margin: 10px; /* Margin between cards */
+    padding: 10px; /* Padding inside the card */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+    transition: transform 0.2s ease-in-out; /* Add a smooth hover effect */
+    font-size: 18px;
+    background: linear-gradient(45deg, #18e831, #b98809, #ef2314, #ffeead, #b2f7ef, #a0c4ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .anime-card:hover {
+    transform: scale(1.02); /* Enlarge the card slightly on hover */
+  }
+  
+  .anime-card-content {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .anime-card-info {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  
