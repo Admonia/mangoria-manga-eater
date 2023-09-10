@@ -40,7 +40,7 @@
  /* Users.css */
 
 .user-card {
-    background: linear-gradient(45deg, #ff00005f, #ff9900, #00ff0038, #0099ff, #9900ff, #ff0099, #ff0000); /* Rainbow background */
+    background: linear-gradient(45deg, #198cc15f, #187de884, #00ff0038, #0099ff, #9900ff, #ff0099, #ff0000); /* Rainbow background */
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 16px;
