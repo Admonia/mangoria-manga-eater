@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { fetchAllAnime, deleteAnime, createAnime } from "../helpers/anime";
-import CreateAnimeForm from "./CreateAnimeForm";
+import {
+  fetchAllAnime,
+  createAnime,
+  updateAnime,
+  deleteAnime,
+} from "../helpers/anime";
 
 export default function Anime() {
   const [animeList, setAnimeList] = useState([]);
+  const [newAnime, setNewAnime] = useState({ name: "", description: "" });
+  const [editingAnime, setEditingAnime] = useState(null);
 
   useEffect(() => {
     fetchAnimeData();
@@ -18,48 +24,79 @@ export default function Anime() {
     }
   };
 
-  const handleDeleteAnime = async (animeId) => {
-    console.log("Deleting anime with ID:", animeId);
-
-    try {
-      await deleteAnime(animeId);
-      console.log("Anime deleted successfully.");
-      setAnimeList((prevAnimeList) =>
-        prevAnimeList.filter((anime) => anime.id !== animeId)
-      );
-    } catch (error) {
-      console.error("Error deleting anime:", error);
-    }
-  };
-
-  const handleCreateAnime = async (newAnime) => {
+  const handleCreateAnime = async () => {
     try {
       const createdAnime = await createAnime(newAnime);
-      setAnimeList((prevAnimeList) => [...prevAnimeList, createdAnime]);
+      setAnimeList([...animeList, createdAnime]);
+      setNewAnime({ name: "", description: "" }); // Clear form after creating
     } catch (error) {
       console.error("Error creating anime:", error);
     }
   };
 
+  const handleEditAnime = async () => {
+    try {
+      if (!editingAnime) return;
+
+      const updatedAnime = await updateAnime(editingAnime.animeId, newAnime);
+      setAnimeList((prevAnimeList) =>
+        prevAnimeList.map((anime) =>
+          anime.animeId === updatedAnime.animeId ? updatedAnime : anime
+        )
+      );
+      setNewAnime({ name: "", description: "" }); // Clear form after editing
+      setEditingAnime(null);
+    } catch (error) {
+      console.error("Error editing anime:", error);
+    }
+  };
+
+  const handleDeleteAnime = async (animeId) => {
+    try {
+      await deleteAnime(animeId);
+      setAnimeList(animeList.filter((anime) => anime.animeId !== animeId));
+    } catch (error) {
+      console.error("Error deleting anime:", error);
+    }
+  };
+
   return (
     <div>
-      <h2>Anime List</h2>
-      <ul>
-        {animeList.map((anime) => (
-          <li key={anime.id}>
-            <div>
-              <h3>{anime.name}</h3>
-              <p>{anime.description}</p>
-              <button onClick={() => handleDeleteAnime(anime.id)}>Delete</button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      {/* Display anime data */}
+      {animeList.map((anime) => (
+        <div key={anime.animeId}>
+          <h3>{anime.name}</h3>
+          <p>{anime.description}</p>
+          <button onClick={() => handleDeleteAnime(anime.animeId)}>Delete</button>
+          <button onClick={() => setEditingAnime(anime)}>Edit</button>
+        </div>
+      ))}
 
-      <CreateAnimeForm onAnimeCreated={handleCreateAnime} />
+      {/* Create or edit anime form */}
+      <div>
+        <input
+          type="text"
+          placeholder="Name"
+          value={newAnime.name}
+          onChange={(e) => setNewAnime({ ...newAnime, name: e.target.value })}
+        />
+        <textarea
+          placeholder="Description"
+          value={newAnime.description}
+          onChange={(e) =>
+            setNewAnime({ ...newAnime, description: e.target.value })
+          }
+        />
+        {editingAnime ? (
+          <button onClick={handleEditAnime}>Edit Anime</button>
+        ) : (
+          <button onClick={handleCreateAnime}>Create Anime</button>
+        )}
+      </div>
     </div>
   );
 }
+
 
 
 
