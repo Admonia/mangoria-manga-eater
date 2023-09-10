@@ -8,7 +8,6 @@ const {
 } = require('./helpers/users');
 const { createPost, getAllPosts, getPostById, updatePost, deletePost } = require('./helpers/posts');
 const { createAnime, getAllAnime } = require('./helpers/anime');
-
 const { users, posts, anime } = require('./seedData');
 
 const dropTables = async () => {
@@ -173,11 +172,3 @@ const rebuildDb = async () => {
 };
 
 rebuildDb();
-
-
-
-
-
-
-
-

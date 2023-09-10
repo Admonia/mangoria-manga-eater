@@ -1,51 +1,115 @@
-/* Anime.css */
+/* Container for Each Anime Entry */
+.anime-container {
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-.anime-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .anime-heading {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-    padding: 10px; /* Add some padding for spacing */
-    border-radius: 8px; /* Rounded corners */
-    background: linear-gradient(45deg, #f06, #f90, #ff0, #0f6, #06f, #90f, #f06);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    border: 2px solid transparent;
-    animation: rainbowBorder 5s linear infinite;
-    color: #000; /* Black text color */
-  }
-  
-  .anime-card {
-    border: 1px solid #f3da1e; /* Border for the card */
-    border-radius: 10px; /* Rounded corners for the card */
-    margin: 10px; /* Margin between cards */
-    padding: 10px; /* Padding inside the card */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
-    transition: transform 0.2s ease-in-out; /* Add a smooth hover effect */
-    font-size: 18px;
-    background: linear-gradient(45deg, #18e831, #b98809, #ef2314, #ffeead, #b2f7ef, #a0c4ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  
-  .anime-card:hover {
-    transform: scale(1.02); /* Enlarge the card slightly on hover */
-  }
-  
-  .anime-card-content {
-    font-size: 18px;
-    color: #333;
-  }
-  
-  .anime-card-info {
-    margin: 5px 0;
-    color: #555;
-  }
-  
-  
+/* Anime Title */
+.anime-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+/* Anime Description */
+.anime-description {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: #555;
+  text-align: center;
+}
+
+/* Anime Image */
+.anime-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Action Buttons (Edit and Delete) */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.action-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-button.edit {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.action-button.delete {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.action-button.edit:hover {
+  background-color: #2980b9;
+}
+
+.action-button.delete:hover {
+  background-color: #c0392b;
+}
+
+/* Form Styling */
+.anime-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.anime-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.anime-form input[type="text"],
+.anime-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 1rem;
+}
+
+.anime-form button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.anime-form button:hover {
+  background-color: #2980b9;
+}

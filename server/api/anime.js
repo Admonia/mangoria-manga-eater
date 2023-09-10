@@ -83,9 +83,33 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
-
+router.patch('/:id', async (req, res, next) => {
+    try {
+      // Parse the animeId from the URL parameter
+      const animeId = parseInt(req.params.id);
+  
+      // Check if the anime exists
+      const existingAnime = await getAnimeById(animeId);
+  
+      if (!existingAnime) {
+        return res.status(404).json({ message: 'Anime not found' });
+      }
+  
+      // Get the updated anime data from the request body
+      const updatedAnimeData = req.body;
+  
+      // Call a function to update the anime with the new data
+      const updatedAnime = await updateAnime(animeId, updatedAnimeData);
+  
+      res.json(updatedAnime); // Respond with the updated anime data
+    } catch (error) {
+      next(error); // Handle errors
+    }
+  });
+  
 
 module.exports = router;
+
 
 
 

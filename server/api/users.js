@@ -46,6 +46,25 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+//patch 
+// PATCH (Partial Update) a user by ID
+// router.patch('/:id', async (req, res, next) => {
+//   try {
+//     const userId = parseInt(req.params.id); 
+//     const updatedUserData = req.body; 
+//     const updatedUser = await updateUser(userId, updatedUserData); // Call the function to update a user by ID
+
+//     if (updatedUser) {
+//       res.json(updatedUser); // Send the updated user data as a JSON response
+//     } else {
+//       res.status(404).json({ message: 'User not found' }); // User not found
+//     }
+//   } catch (error) {
+//     next(error); // Handle errors
+//   }
+// });
+
+
 // PUT (Update) a user by ID
 router.put('/:id', async (req, res, next) => {
   try {

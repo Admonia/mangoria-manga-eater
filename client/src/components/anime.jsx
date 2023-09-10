@@ -1,23 +1,65 @@
-import React from "react";
-import "./Anime.css"; // Import your CSS file
+import React, { useState, useEffect } from "react";
+import { fetchAllAnime, deleteAnime, createAnime } from "../helpers/anime";
+import CreateAnimeForm from "./CreateAnimeForm";
 
-export default function Anime({ anime }) {
+export default function Anime() {
+  const [animeList, setAnimeList] = useState([]);
+
+  useEffect(() => {
+    fetchAnimeData();
+  }, []);
+
+  const fetchAnimeData = async () => {
+    try {
+      const data = await fetchAllAnime();
+      setAnimeList(data);
+    } catch (error) {
+      console.error("Error fetching anime data:", error);
+    }
+  };
+
+  const handleDeleteAnime = async (animeId) => {
+    console.log("Deleting anime with ID:", animeId);
+  
+    try {
+      await deleteAnime(animeId);
+      console.log("Anime deleted successfully.");
+      setAnimeList((prevAnimeList) =>
+        prevAnimeList.filter((anime) => anime.id !== animeId)
+      );
+    } catch (error) {
+      console.error("Error deleting anime:", error);
+    }
+  };
+  
+  
+
+  const handleCreateAnime = async (newAnime) => {
+    try {
+      const createdAnime = await createAnime(newAnime);
+      setAnimeList((prevAnimeList) => [...prevAnimeList, createdAnime]);
+    } catch (error) {
+      console.error("Error creating anime:", error);
+    }
+  };
+
   return (
     <div>
-      <h2 className="anime-heading">Anime List</h2> {/* Apply the anime-heading class here */}
-      <div className="anime-cards">
-        {anime.map((animeItem) => (
-          <div key={animeItem.animeId} className="anime-card">
-            <p className="anime-info">Anime ID: {animeItem.animeId}</p>
-            <p className="anime-info">Anime Name: {animeItem.name}</p>
-            <p className="anime-info">Anime Description: {animeItem.description}</p>
-          </div>
+      <h2>Anime List</h2>
+      <ul>
+        {animeList.map((anime) => (
+          <li key={anime.id}>
+            <div>
+              <h3>{anime.name}</h3>
+              <p>{anime.description}</p>
+              <button onClick={() => anime.id && handleDeleteAnime(anime.id)}>Delete</button>
+
+            </div>
+          </li>
         ))}
-      </div>
+      </ul>
+
+      <CreateAnimeForm onAnimeCreated={handleCreateAnime} />
     </div>
   );
 }
-
-
-
-

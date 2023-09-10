@@ -74,32 +74,32 @@ const getAnimeById = async (animeId) => {
 // SET name = 'Hells Paradise', description = 'An assassin with a beating heart, the man loves his wife. Thrust into a garden filled with creatures from HELL he must survive to be pardoned and return home to the woman he loves.'
 // WHERE "animeId" = 1
 // RETURNING *;
-  
-  const deleteAnime = async (animeId) => {
-    try {
-      const {
-        rows: [deletedAnime],
-      } = await client.query(
-        `
-        DELETE FROM anime
-        WHERE "animeId" = $1
-        RETURNING *;
-        `,
-        [animeId]
-      );
-  
-      if (!deletedPost) {
-        console.error(`Anime with ID ${animeId} not found`);
-        return null; // Handle the case when the user doesn't exist
-      }
-  
-      console.log(`Deleted anime with ID ${animeId}`);
-      return deletedAnime;
-    } catch (error) {
-      console.error('Error deleting user:', error);
-      throw error;
+const deleteAnime = async (animeId) => {
+  try {
+    const {
+      rows: [deletedAnime],
+    } = await client.query(
+      `
+      DELETE FROM anime
+      WHERE "animeId" = $1
+      RETURNING *;
+      `,
+      [animeId]
+    );
+
+    if (!deletedAnime) {
+      console.error(`Anime with ID ${animeId} not found`);
+      return null; // Handle the case when the anime doesn't exist
     }
-  };
+
+    console.log(`Deleted anime with ID ${animeId}`);
+    return deletedAnime;
+  } catch (error) {
+    console.error('Error deleting anime:', error);
+    throw error;
+  }
+};
+
   
   
 

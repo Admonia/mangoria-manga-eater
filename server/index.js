@@ -24,6 +24,18 @@ app.get('/', (req, res) => {
 // Router: /api
 app.use('/api', require('./api'));
 
+app.delete('/api/anime/:animeId', async (req, res) => {
+  const animeId = parseInt(req.params.animeId, 10);
+  if (!isNaN(animeId)) {
+    // Proceed with deleting the anime using animeId
+    // ...
+  } else {
+    res.status(400).json({ error: 'Invalid animeId' });
+  }
+});
+
+  
+
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
