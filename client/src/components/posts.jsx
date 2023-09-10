@@ -6,6 +6,7 @@ import {
   deletePost,
 } from "../helpers/posts";
 
+
 export default function Posts() {
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState({ title: "", body: "" });
