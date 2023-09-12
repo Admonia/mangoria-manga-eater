@@ -11,6 +11,7 @@ router.get('/health', (re,res,next) => {
 router.use('/users', require('./users'));
 router.use('/posts', require('./posts'));
 router.use('/anime', require('./anime'));
+router.use('/auth', require('./auth'))
 
 // export default router;
 module.exports = router;

@@ -1,10 +1,20 @@
 const express = require('express');
 const app = express();
 const PORT = 8089;
-
+const cookieParser = require('cookie-parser')
+const { COOKIE_SECRET } = require('./secrets')
+const { authRequired } = require('./api/utils')
 // init morgan
 const morgan = require('morgan');
 app.use(morgan('dev'));
+
+//cookie secret
+app.use(cookieParser(COOKIE_SECRET))
+
+//auth required
+app.get('/test', authRequired, (req, res, next) => {
+    res.send('You are authorized')
+  })  
 
 // init body-parser
 const bodyParser = require('body-parser');
@@ -23,6 +33,7 @@ app.get('/', (req, res) => {
 
 // Router: /api
 app.use('/api', require('./api'));
+
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
