@@ -16,6 +16,12 @@ function Navbar() {
         <li>
           <Link to="/posts">Posts</Link>
         </li>
+        <li>
+        <Link to="/signup">Signup</Link>
+        </li>
+        <li>
+        <Link to="/login">Login</Link>
+        </li>
       </ul>
     </nav>
   );

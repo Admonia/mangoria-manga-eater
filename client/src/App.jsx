@@ -7,6 +7,9 @@ import Posts from "./components/Posts";
 import { fetchAllUsers } from "./helpers/users";
 import { fetchAllAnime } from "./helpers/anime";
 import { fetchAllPosts } from "./helpers/posts";
+// import LoginForm from "./components/LoginForm";
+import Signup from './components/Signup';
+import Login from './components/Login';
 import "./App.css";
 
 function App() {
@@ -47,6 +50,8 @@ function App() {
           <Route path="/users" element={<Users users={users} />} />
           <Route path="/anime" element={<Anime anime={anime} />} />
           <Route path="/posts" element={<Posts posts={posts} />} />
+          <Route path="/signup" element={<Signup signup={Signup} />} />
+          <Route path="/login" element={<Login login={Login} />} />
         </Routes>
       </div>
     </>
