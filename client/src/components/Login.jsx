@@ -10,75 +10,66 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check for empty fields
     if (!username || !password) {
       setError('Please enter both username and password.');
       return;
     }
 
     try {
-      setLoading(true); // Set loading to true to disable the button and show feedback
-      setError(null); // Clear any previous errors
-      setSuccessMessage(null); // Clear any previous success messages
+      setLoading(true);
+      setError(null);
+      setSuccessMessage(null);
 
-      // Send the login request to the backend
-      const response = await fetch('http://localhost:8089/api/users/login', {
+      const response = await fetch('http://localhost:8089/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Add credentials to handle cookies if using JWT with cookies
+        credentials: 'include',
         body: JSON.stringify({ username, password }),
       });
 
-      // Handle the response
       if (!response.ok) {
-        const errorData = await response.json(); // Parse JSON response for error message
-        console.error('Login Error:', errorData); // Log error data
+        const errorData = await response.json();
+        console.error('Login Error:', errorData);
         throw new Error(errorData.error || 'Login failed. Please try again.');
       }
 
-      // Assuming the backend sends a JWT token or sets cookies
-      const responseData = await response.json(); // Get any additional data sent from backend
-      console.log('Login successful, data received:', responseData);
+      const responseData = await response.json();
+      console.log('Login successful:', responseData);
 
-      setSuccessMessage('Login successful!'); // Set the success message
-      setError(null); // Clear error
-      setUsername(''); // Clear username input
-      setPassword(''); // Clear password input
+      setSuccessMessage('Login successful!');
+      setUsername('');
+      setPassword('');
 
-      // Optional: Redirect or save token in localStorage
-      // localStorage.setItem('token', responseData.token);
-      // window.location.href = '/dashboard';
+      // Optionally: Redirect after login
+      window.location.href = '/dashboard'; // Adjust this as needed
+
     } catch (error) {
-      console.error('Catch Error:', error); // Log any caught errors
+      console.error('Catch Error:', error);
       setError(error.message || 'An error occurred. Please try again later.');
-      setSuccessMessage(null); // Clear success message on error
+      setSuccessMessage(null);
     } finally {
-      setLoading(false); // Stop the loading state
+      setLoading(false);
     }
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">
+        <label>
           Username:
           <input
             type="text"
-            id="username"
-            name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </label>
         <br />
-        <label htmlFor="password">
+        <label>
           Password:
           <input
             type="password"
-            id="password"
-            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -111,6 +102,11 @@ export default Login;
 
 
 
+
+
+
+
+
 // import React, { useState } from 'react';
 
 // function Login() {
@@ -121,8 +117,9 @@ export default Login;
 //   const [loading, setLoading] = useState(false);
 
 //   const handleSubmit = async (e) => {
-//     e.preventDefault(); // Prevent the default form submission behavior
+//     e.preventDefault();
 
+//     // Check for empty fields
 //     if (!username || !password) {
 //       setError('Please enter both username and password.');
 //       return;
@@ -130,26 +127,43 @@ export default Login;
 
 //     try {
 //       setLoading(true);
+//       setError(null);
+//       setSuccessMessage(null);
 
-//       const response = await fetch('http://localhost:8089/api/users/login', {
+//       // Send the login request to the backend
+//       const response = await fetch('http://localhost:8089/api/auth/login', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
 //         },
+//         credentials: 'include', // Needed for handling cookies with JWT
 //         body: JSON.stringify({ username, password }),
 //       });
 
-//       if (!response.ok) {
-//         const errorData = await response.json();
-//         throw new Error(errorData.error || 'Login failed. Please try again.');
-//       }
+//       // Check if response is JSON
+//       if (response.headers.get('content-type')?.includes('application/json')) {
+//         const responseData = await response.json();
 
-//       setSuccessMessage('Login successful!');
-//       setError(null);
-//       setUsername(''); // Clear inputs after success
-//       setPassword('');
+//         // Handle unsuccessful response
+//         if (!response.ok) {
+//           console.error('Login Error:', responseData);
+//           throw new Error(responseData.error || 'Login failed. Please try again.');
+//         }
+
+//         console.log('Login successful, data received:', responseData);
+
+//         setSuccessMessage('Login successful!');
+//         setUsername('');
+//         setPassword('');
+
+//         // Optionally: Redirect after login or store token
+//         // localStorage.setItem('token', responseData.token);
+//         // window.location.href = '/dashboard';
+//       } else {
+//         throw new Error('Unexpected response format. Please try again.');
+//       }
 //     } catch (error) {
-//       console.error(error);
+//       console.error('Catch Error:', error);
 //       setError(error.message || 'An error occurred. Please try again later.');
 //       setSuccessMessage(null);
 //     } finally {
@@ -168,6 +182,7 @@ export default Login;
 //             name="username"
 //             value={username}
 //             onChange={(e) => setUsername(e.target.value)}
+//             aria-label="Enter your username"
 //           />
 //         </label>
 //         <br />
@@ -179,99 +194,23 @@ export default Login;
 //             name="password"
 //             value={password}
 //             onChange={(e) => setPassword(e.target.value)}
+//             aria-label="Enter your password"
 //           />
 //         </label>
 //         <br />
 //         <button type="submit" disabled={loading}>
 //           {loading ? 'Logging in...' : 'Login'}
 //         </button>
-//         {error && <p style={{ color: 'red' }}>{error}</p>}
-//         {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default Login;
-
-
-
-
-
-
-
-// import React, { useState } from 'react';
-
-// function Login() {
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState(null);
-//   const [successMessage, setSuccessMessage] = useState(null);
-//   const [loading, setLoading] = useState(false);
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault(); // Prevent the default form submission behavior
-
-//     if (!username || !password) {
-//       setError('Please enter both username and password.');
-//       return;
-//     }
-
-//     try {
-//       setLoading(true);
-
-//       const response = await fetch('http://localhost:8089/api/users/login', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ username, password }),
-//       });
-
-//       if (!response.ok) {
-//         const errorData = await response.json();
-//         throw new Error(errorData.error || 'Login failed. Please try again.');
-//       }
-
-//       setSuccessMessage('Login successful!');
-//       setError('');
-//       setUsername(''); // Clear inputs after success
-//       setPassword('');
-//     } catch (error) {
-//       console.error(error);
-//       setError(error.message || 'An error occurred. Please try again later.');
-//       setSuccessMessage('');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <form onSubmit={handleSubmit}>
-//         <label>
-//           Username:
-//           <input
-//             type="text"
-//             value={username}
-//             onChange={(e) => setUsername(e.target.value)}
-//           />
-//         </label>
-//         <br />
-//         <label>
-//           Password:
-//           <input
-//             type="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//           />
-//         </label>
-//         <br />
-//         <button type="submit" disabled={loading}>
-//           {loading ? 'Logging in...' : 'Login'}
-//         </button>
-//         {error && <p style={{ color: 'red' }}>{error}</p>}
-//         {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+//         {error && (
+//           <p style={{ color: 'red' }} role="alert" aria-live="assertive">
+//             {error}
+//           </p>
+//         )}
+//         {successMessage && (
+//           <p style={{ color: 'green' }} role="status" aria-live="polite">
+//             {successMessage}
+//           </p>
+//         )}
 //       </form>
 //     </div>
 //   );
@@ -287,82 +226,7 @@ export default Login;
 
 
 
-// import React, { useState } from 'react';
 
 
 
-// const LoginForm = () => {
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState('');
-//   const [loginSuccess, setLoginSuccess] = useState(false);
 
-//   const login = async () => {
-//     try {
-//       const response = await fetch(`${BASE_URL}/users/login`, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//           user: {
-//             username,
-//             password
-//           }
-//         })
-//       });
-//       const result = await response.json();
-//       console.log(result);
-//       return result;
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
-
-//   const handleLoginSubmit = async (event) => {
-//     event.preventDefault();
-
-//     const loginResult = await login();
-
-//     if (loginResult) {
-//       if (loginResult.success) {
-//         setError('');
-//         setLoginSuccess(true);
-//       } else {
-//         setError(loginResult.error.message);
-//         setLoginSuccess(false);
-//       }
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h2>Login</h2>
-//       {error && <p>{error}</p>}
-//       {loginSuccess && <p>Login is a success!</p>}
-//       <form onSubmit={handleLoginSubmit}>
-//         <label>
-//           Username:
-//           <input
-//             type="text"
-//             value={username}
-//             onChange={(e) => setUsername(e.target.value)}
-//           />
-//         </label>
-//         <br />
-//         <label>
-//           Password:
-//           <input
-//             type="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//           />
-//         </label>
-//         <br />
-//         <button type="submit">Login</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default LoginForm;

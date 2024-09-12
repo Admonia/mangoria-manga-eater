@@ -1,24 +1,20 @@
 const bcrypt = require('bcrypt');
-const SALT_ROUNDS = 10;
-const password = 'testpassword34567891011121314151617'; // The password to test
 
-// Generate a hash
-bcrypt.hash(password, SALT_ROUNDS, (err, hash) => {
+// Example password
+const plainPassword = 'testuser3456789101112131415161718192021222324';
+
+// Hash the password (this should be done during user registration)
+const hashedPassword = '$2b$10$bi/Rfol5x8PCg6gSvVJj9u/AfS0r88QrCmnbcIahTEnGkn8fL94Rm'; // Example hash from DB
+
+// Compare the plain password with the hashed password
+bcrypt.compare(plainPassword, hashedPassword, (err, result) => {
   if (err) {
-    console.error('Error creating hash:', err);
-    return;
+    console.error('Comparison Error:', err);
+  } else {
+    console.log('Password Match:', result); // Should be true if passwords match
   }
-  console.log('Generated hash:', hash);
-
-  // Simulate user login with the same password
-  bcrypt.compare(password, hash, (err, result) => {
-    if (err) {
-      console.error('Error comparing password:', err);
-      return;
-    }
-    console.log('Password valid:', result); // Should print true
-  });
 });
+
 
 
 

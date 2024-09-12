@@ -42,7 +42,7 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   color: #333; /* Darker text color for better readability */
   position: relative; /* For positioning text boxes */
-  background-image: linear-gradient(135deg, #ff77b3, #d3cce3, #ff6f61, #c1c6fc, #6b5b95, #d16ba5); /* Rainbow gradient */
+  background-image: linear-gradient(135deg, #ff77b297, #4fef5982, #ff6f61, #c1c6fc, #6b5b95, #d16ba5); /* Rainbow gradient */
   background-blend-mode: overlay; /* Blend mode for rainbow effect */
 }
 
