@@ -1,66 +1,127 @@
-/* Users.css */
-
+/* Heading with gradient text and sparkling border */
 .user-heading {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-    padding: 10px; /* Add some padding for spacing */
-    border-radius: 8px; /* Rounded corners */
-    background: linear-gradient(45deg, #f06, #f90, #ff0, #0f6, #06f, #90f, #f06);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    border: 2px solid transparent;
-    animation: rainbowBorder 5s linear infinite;
-  }
-  
-  @keyframes rainbowBorder {
-    0% {
-      background-position: 0%;
-    }
-    100% {
-      background-position: 100%;
-    }
-  }
-  
-  
- /* .user-heading {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #28ec21e3; 
-  }  */
+  font-size: 28px; /* Larger font size for emphasis */
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 12px; /* More rounded corners */
+  background: linear-gradient(45deg, #ff6f61, #ffcc70, #c1c6fc, #6b5b95, #d16ba5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 2px solid transparent;
+  animation: rainbowBorder 6s linear infinite;
+}
 
-  .user-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+/* Animation for the rainbow border effect */
+@keyframes rainbowBorder {
+  0% {
+    background-position: 0%;
   }
-  
- /* Users.css */
+  100% {
+    background-position: 100%;
+  }
+}
 
+/* Container for user cards */
+.user-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Space between cards */
+  padding: 20px; /* Space around the container */
+}
+
+/* Individual user card styles */
 .user-card {
-    background: linear-gradient(45deg, #198cc15f, #187de884, #00ff0038, #0099ff, #9900ff, #ff0099, #ff0000); /* Rainbow background */
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 10px;
-    width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out; /* Add a smooth transition effect */
-    color: #000; /* Black text color */
-  }
-  
-  
-  .user-card:hover {
-    transform: scale(1.05); /* Enlarge the card on hover */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
-  }
-  
-  .user-card p {
-    margin: 8px 0;
-    color: #0b0a0a; /* Text color */
-  }
-  
-  /* Add more styles as needed */
+  background: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
+  border: 2px solid transparent; /* Transparent border for the rainbow effect */
+  border-radius: 12px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  color: #333; /* Darker text color for better readability */
+  position: relative; /* For positioning text boxes */
+  background-image: linear-gradient(135deg, #ff77b3, #d3cce3, #ff6f61, #c1c6fc, #6b5b95, #d16ba5); /* Rainbow gradient */
+  background-blend-mode: overlay; /* Blend mode for rainbow effect */
+}
+
+/* Hover effect for user cards */
+.user-card:hover {
+  transform: scale(1.05); /* Slightly enlarge the card */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+/* Text within the user card */
+.user-card p {
+  margin: 12px 0; /* Space between paragraphs */
+  color: #444; /* Slightly lighter text color */
+  font-size: 16px; /* Increase font size for better readability */
+}
+
+/* Form container for text boxes under each post */
+.form-container {
+  width: 100%; /* Full width */
+  max-width: 400px; /* Limit width of the form */
+  margin: 20px auto; /* Center the form horizontally */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #f9f9f9; /* Light background color */
+}
+
+/* General input styling */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+  width: calc(100% - 24px); /* Full width minus padding */
+  padding: 8px; /* Smaller padding */
+  margin-bottom: 12px; /* Space between text fields */
+  border-radius: 6px; /* Slightly rounded corners */
+  border: 2px solid #ddd;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  font-size: 14px; /* Smaller font size */
+  color: #333; /* Dark text color */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus effect for text fields */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  border-color: #007bff; /* Change border color on focus */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25); /* Add a subtle shadow */
+  outline: none; /* Remove default outline */
+}
+
+/* Submit button */
+button[type="submit"] {
+  background: linear-gradient(135deg, #ff77b3, #d3cce3); /* Gradient background for the button */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px 20px; /* Smaller padding */
+  font-size: 14px; /* Smaller font size */
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for submit button */
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #d3cce3, #ff77b3); /* Reverse the gradient on hover */
+  transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+/* Error message styling */
+.error-message {
+  color: #dc3545; /* Red color for errors */
+  font-size: 14px; /* Smaller font size for error messages */
+  margin-bottom: 12px; /* Space below error messages */
+}
+
+
+
+
   

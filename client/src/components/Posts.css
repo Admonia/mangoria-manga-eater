@@ -1,0 +1,136 @@
+/* Container for posts */
+.section-container {
+    padding: 20px;
+  }
+  
+  /* Wider cards with color-changing and see-through effect */
+  .section-box {
+    background: rgba(255, 255, 255, 0.6); /* Semi-transparent white background */
+    border: 2px solid rgba(0, 0, 0, 0.1); /* Slightly visible border */
+    border-radius: 12px; /* Rounded corners */
+    padding: 20px;
+    width: 100%; /* Full width */
+    max-width: 600px; /* Increase max width of cards */
+    margin: 20px auto; /* Center cards horizontally */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 2s linear;
+    position: relative; /* For positioning color-changing animation */
+    background-image: linear-gradient(45deg, rgba(255, 77, 77, 0.5), rgba(77, 77, 255, 0.5), rgba(77, 255, 77, 0.5), rgba(255, 255, 77, 0.5));
+    background-size: 400% 400%;
+    animation: colorChange 6s ease infinite; /* Color-changing animation */
+  }
+  
+  /* Animation for color-changing effect */
+  @keyframes colorChange {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+  
+  /* Hover effect for wider cards */
+  .section-box:hover {
+    transform: scale(1.05); /* Slightly enlarge the card */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+  }
+  
+  /* Form container for text boxes under each post */
+  .edit-form {
+    margin-top: 10px;
+    padding: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.1); /* Slightly visible border */
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* General input styling */
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  textarea {
+    width: calc(100% - 24px); /* Full width minus padding */
+    padding: 8px; /* Smaller padding */
+    margin-bottom: 12px; /* Space between text fields */
+    border-radius: 6px; /* Slightly rounded corners */
+    border: 2px solid rgba(0, 0, 0, 0.1); /* Slightly visible border */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    font-size: 14px; /* Smaller font size */
+    color: #333; /* Dark text color */
+    background: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Focus effect for text fields */
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    border-color: #007bff; /* Change border color on focus */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25); /* Add a subtle shadow */
+    outline: none; /* Remove default outline */
+  }
+  
+  /* Button styles */
+  button {
+    background: linear-gradient(135deg, #ff77b3, #d3cce3); /* Gradient background */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding */
+    font-size: 14px; /* Font size */
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* For positioning sparkling effect */
+    overflow: hidden; /* Hide overflowing sparkles */
+  }
+  
+  /* Hover effect for submit button */
+  button:hover {
+    background: linear-gradient(135deg, #d3cce3, #ff77b3); /* Reverse gradient on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+  }
+  
+  /* Sparkling effect for buttons */
+  button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 20%, transparent 60%);
+    animation: sparkle 1.5s linear infinite;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  
+  /* Animation for sparkling effect */
+  @keyframes sparkle {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: #dc3545; /* Red color for errors */
+    font-size: 14px; /* Smaller font size for error messages */
+    margin-bottom: 12px; /* Space below error messages */
+  }
+  
+
+  

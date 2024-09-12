@@ -1,78 +1,257 @@
 const express = require('express');
 const app = express();
 const PORT = 8089;
-const cookieParser = require('cookie-parser')
-const { COOKIE_SECRET } = require('./secrets')
-const { authRequired } = require('./api/utils')
-// init morgan
+const cookieParser = require('cookie-parser');
+const { COOKIE_SECRET } = require('./secrets');
+const { authRequired } = require('./api/utils');
+
+// Init morgan
 const morgan = require('morgan');
 app.use(morgan('dev'));
 
-//cookie secret
-app.use(cookieParser(COOKIE_SECRET))
+// Cookie secret
+app.use(cookieParser(COOKIE_SECRET));
 
-//auth required
+// Auth required
 app.get('/test', authRequired, (req, res, next) => {
-    res.send('You are authorized')
-  })  
+  res.send('You are authorized');
+});
 
-// init body-parser
+// Init body-parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-// init cors
+// Init cors
 const cors = require('cors');
 app.use(cors());
 
+// Database connection
 const client = require('./db/client');
 client.connect();
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+// Use dotenv for environment variables
+require('dotenv').config();
 
 // Router: /api
 app.use('/api', require('./api'));
 
-
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+// Default route
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
+
+// Listen for requests
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
+
+// Handle graceful shutdown
+process.on('SIGINT', async () => {
+  try {
+    // Close the database connection before exiting
+    await client.end();
+    console.log('Database connection closed.');
+    process.exit(0);
+  } catch (error) {
+    console.error('Error closing database connection:', error);
+    process.exit(1);
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // const express = require('express');
 // const app = express();
-// const morgan = require('morgan');
-// const bodyParser = require('body-parser');
-// const cors = require('cors');
-// const client = require('./db/client'); // Import your database client
+// const PORT = 8089;
+// const cookieParser = require('cookie-parser');
+// const { COOKIE_SECRET } = require('./secrets');
+// const { authRequired } = require('./api/utils');
 
-// const PORT = process.env.PORT || 8089; // Use the provided port or default to 8089
-// const client = require("./db/client")
-// client.connect();
-// // Middleware
+// // Use dotenv for environment variables
+// require('dotenv').config();
+
+// // Init morgan
+// const morgan = require('morgan');
 // app.use(morgan('dev'));
+
+// // Cookie secret
+// app.use(cookieParser(COOKIE_SECRET));
+
+// // Init body-parser
+// const bodyParser = require('body-parser');
 // app.use(bodyParser.json());
+
+// // Init cors
+// const cors = require('cors');
 // app.use(cors());
 
 // // Database connection
-// // client.connect();
+// const client = require('./db/client');
+// client.connect();
 
-// // Routes
+// // Auth required
+// app.get('/test', authRequired, (req, res) => {
+//   res.send('You are authorized');
+// });
+
+// // Router: /api
+// app.use('/api', require('./api'));
+
+// // Default route
 // app.get('/', (req, res) => {
 //   res.send('Hello World!');
 // });
 
-// // Import and use your API routes
-// // const usersRouter = require('./api/users'); // Adjust the path as needed
-// // app.use('/api/users', usersRouter); // Mount the user-related router under /api/users
-// app.use('api', require('./api').default);
-// // app.use('api/users', require('./api/users'));
-// // Add more routes and middleware as needed
+// // Handle graceful shutdown
+// process.on('SIGINT', async () => {
+//   try {
+//     // Close the database connection before exiting
+//     await client.end();
+//     console.log('Database connection closed.');
+//     process.exit(0);
+//   } catch (error) {
+//     console.error('Error closing database connection:', error);
+//     process.exit(1);
+//   }
+// });
 
+// // Error handling middleware
+// app.use((err, req, res, next) => {
+//   console.error('Error:', err);
+//   res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+// });
+
+// // Listen for requests
 // app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
+//   console.log(`Server listening on port ${PORT}`);
 // });
 
 
 
+
+
+
+
+
+
+
+
+
+
+// const express = require('express');
+// const app = express();
+// const PORT = 8089;
+// const cookieParser = require('cookie-parser');
+// const { COOKIE_SECRET } = require('./secrets');
+// const { authRequired } = require('./api/utils');
+
+// // Init morgan
+// const morgan = require('morgan');
+// app.use(morgan('dev'));
+
+// // Cookie secret
+// app.use(cookieParser(COOKIE_SECRET));
+
+// // Auth required
+// app.get('/test', authRequired, (req, res, next) => {
+//   res.send('You are authorized');
+// });
+
+// // Init body-parser
+// const bodyParser = require('body-parser');
+// app.use(bodyParser.json());
+
+// // Init cors
+// const cors = require('cors');
+// app.use(cors());
+
+// const client = require('./db/client');
+
+// // Use dotenv for environment variables
+// require('dotenv').config();
+
+// // Database connection
+// client.connect();
+
+// // Router: /api
+// app.use('/api', require('./api'));
+
+// // Default route
+// app.get('/', (req, res) => {
+//   res.send('Hello World!');
+// });
+
+// // Listen for requests
+// app.listen(PORT, () => {
+//   console.log(`Server listening on port ${PORT}`);
+// });
+
+// // Handle graceful shutdown
+// process.on('SIGINT', async () => {
+//   try {
+//     // Close the database connection before exiting
+//     await client.end();
+//     console.log('Database connection closed.');
+//     process.exit(0);
+//   } catch (error) {
+//     console.error('Error closing database connection:', error);
+//     process.exit(1);
+//   }
+// });
+
+
+
+
+
+// const express = require('express');
+// const app = express();
+// const PORT = 8089;
+// const cookieParser = require('cookie-parser')
+// const { COOKIE_SECRET } = require('./secrets')
+// const { authRequired } = require('./api/utils')
+// // init morgan
+// const morgan = require('morgan');
+// app.use(morgan('dev'));
+
+// //cookie secret
+// app.use(cookieParser(COOKIE_SECRET))
+
+// //auth required
+// app.get('/test', authRequired, (req, res, next) => {
+//     res.send('You are authorized')
+//   })  
+
+// // init body-parser
+// const bodyParser = require('body-parser');
+// app.use(bodyParser.json());
+
+// // init cors
+// const cors = require('cors');
+// app.use(cors());
+
+// const client = require('./db/client');
+// client.connect();
+
+// app.get('/', (req, res) => {
+//     res.send('Hello World!');
+// });
+
+// // Router: /api
+// app.use('/api', require('./api'));
+
+
+// app.listen(PORT, () => {
+//     console.log(`Server listening on port ${PORT}`);
+// });
 
