@@ -1,0 +1,140 @@
+/* src/components/Dashboard.css */
+
+.dashboard {
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 127, 80, 0.5), rgba(106, 90, 205, 0.5), rgba(128, 255, 0, 0.197), rgba(255, 105, 180, 0.5)); /* Multicolored gradient background with transparency */
+    background-size: 400% 400%; /* Size for animation */
+    animation: gradientAnimation 15s ease infinite; /* Animation for background */
+    min-height: calc(100vh - 60px); /* Adjust based on your navbar height */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content */
+}
+
+/* Animation for background gradient */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Main heading for dashboard */
+.dashboard h1 {
+    font-size: 3rem; /* Increased size for the main heading */
+    color: #fff; /* Bright white color for headings */
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), /* Softer glowing effect */
+                 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+/* Description text */
+.dashboard p {
+    font-size: 1.2rem;
+    color: #17bfdd; /* Medium color for text */
+    margin-bottom: 30px;
+    text-align: center; /* Center text */
+}
+
+/* Card container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center cards */
+    gap: 20px; /* Space between cards */
+}
+
+/* Individual card */
+.card {
+    background: transparent; /* Removed white background */
+    border: none; /* Removed border */
+    border-radius: 12px; /* Rounded corners */
+    padding: 20px;
+    width: 100%; /* Full width */
+    max-width: 600px; /* Increase max width of cards */
+    margin: 20px auto; /* Center cards horizontally */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 2s linear;
+}
+
+/* Hover effect for cards */
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+/* Card headings */
+.card h2 {
+    font-size: 1.5rem;
+    color: #fff; /* Bright white color for card headings */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), /* Softer glowing effect */
+                 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+/* Card text */
+.card p {
+    font-size: 1rem;
+    color: #777; /* Lighter color for card text */
+}
+
+/* Link styling in cards */
+.card a {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px; /* Adjusted padding for a better button size */
+    background: linear-gradient(135deg, #ff77b3, #d3cce3); /* Gradient background */
+    color: white; /* White text on buttons */
+    text-decoration: none;
+    border-radius: 30px; /* More rounded corners for a modern look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
+    position: relative; /* For ripple effect */
+    overflow: hidden; /* Hide overflowing ripple */
+}
+
+/* Button hover effect */
+.card a:hover {
+    background: linear-gradient(135deg, #d3cce3, #ff77b3); /* Reverse gradient on hover */
+    transform: translateY(-2px); /* Lift the button slightly */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+/* Ripple effect */
+.card a::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%; /* Start larger than the button */
+    height: 300%; /* Start larger than the button */
+    background: rgba(255, 255, 255, 0.4); /* Light overlay */
+    border-radius: 50%; /* Circular shape */
+    transform: translate(-50%, -50%) scale(0); /* Start scale at 0 */
+    transition: transform 0.5s, opacity 0.5s; /* Smooth transition */
+    opacity: 0; /* Start invisible */
+}
+
+/* Show ripple on hover */
+.card a:hover::after {
+    transform: translate(-50%, -50%) scale(1); /* Expand to full size */
+    opacity: 1; /* Fade in */
+}
+
+/* Video styling */
+.video {
+    width: 100%; /* Make the video full width */
+    height: 315px; /* Set a fixed height */
+    border-radius: 12px; /* Match card corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+
+/* Error message styling */
+.error-message {
+    color: #dc3545; /* Red color for errors */
+    font-size: 14px; /* Smaller font size for error messages */
+    margin-bottom: 12px; /* Space below error messages */
+}
