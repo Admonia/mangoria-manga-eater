@@ -1,9 +1,25 @@
-// Require Client from pg
-const { Client } = require('pg')
+const { Client } = require('pg');
 
-//Establishing connect to database (like how we do with http://)
-const animeLove = 'anime_lover'
-const client = new Client(`postgres://localhost:5432/${animeLove}`)
-
+const animeLove = 'anime_lover';
+const client = new Client({
+  connectionString: `postgres://localhost:5432/${animeLove}`
+});
 
 module.exports = client;
+
+
+
+
+
+
+
+
+// // Require Client from pg
+// const { Client } = require('pg')
+
+// //Establishing connect to database (like how we do with http://)
+// const animeLove = 'anime_lover'
+// const client = new Client(`postgres://localhost:5432/${animeLove}`)
+
+
+// module.exports = client;

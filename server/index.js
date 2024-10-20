@@ -1,39 +1,42 @@
+require('dotenv').config(); // Load environment variables at the top
 const express = require('express');
 const app = express();
 const PORT = 8089;
 const cookieParser = require('cookie-parser');
-const { COOKIE_SECRET } = require('./secrets');
+const { COOKIE_SECRET } = require('./secrets'); // Ensure COOKIE_SECRET is defined in .env
 const { authRequired } = require('./api/utils');
+
+// Log COOKIE_SECRET for debugging (ensure you do this only in development)
+console.log('COOKIE_SECRET:', COOKIE_SECRET);
 
 // Init morgan
 const morgan = require('morgan');
 app.use(morgan('dev'));
 
-// Init body-parser
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-
-// Init cors
-const cors = require('cors');
-app.use(cors());
-
 // Cookie secret
 app.use(cookieParser(COOKIE_SECRET));
+
+// CORS configuration
+const cors = require('cors');
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  credentials: true,               // Enable credentials (cookies, etc.)
+}));
+
+// Init body-parser
+app.use(express.json()); // Simplified body parser
 
 // Database connection
 const client = require('./db/client');
 client.connect();
 
-// Use dotenv for environment variables
-require('dotenv').config();
+// Auth required
+app.get('/test', authRequired, (req, res) => {
+  res.send('You are authorized');
+});
 
 // Router: /api
 app.use('/api', require('./api'));
-
-// Test route with auth middleware
-app.get('/test', authRequired, (req, res, next) => {
-  res.send('You are authorized');
-});
 
 // Default route
 app.get('/', (req, res) => {
@@ -43,7 +46,7 @@ app.get('/', (req, res) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send('Something went wrong!');
 });
 
 // Listen for requests
@@ -63,6 +66,14 @@ process.on('SIGINT', async () => {
     process.exit(1);
   }
 });
+
+
+
+
+
+
+
+
 
 
 
